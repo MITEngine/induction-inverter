@@ -1,0 +1,4 @@
+design for 48V cause why not
+probably stm32g4 (has FMAC & CAN FD)
+use CAN FD for communication
+add connector for encoder
