@@ -1,4 +1,12 @@
-design for 48V cause why not
-probably stm32g4 (has FMAC & CAN FD)
-use CAN FD for communication
-add connector for encoder
+Design Specs
+-design for 48V cause why not
+-probably stm32g4 (has FMAC & CAN FD)
+-use CAN FD for communication
+-add connector for encoder
+
+Inverter Test Setup
+-mosfet IRF540N (100V, 33A)
+-gate driver IR2125 (<18V logic) (500V offset)
+-run at 50V or below
+-run at 20khz
+
