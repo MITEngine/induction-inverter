@@ -16,3 +16,6 @@ USB_Device/
 USB_DEVICE/
 FATFS/
 
+### Python ###
+__pycache__/
+
