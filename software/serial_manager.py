@@ -1,12 +1,45 @@
 """Manages serial connections to devices"""
 
+import struct
+from enum import Enum
+
 import serial
 import serial.tools.list_ports
 
 
+class DataType(Enum):
+    Empty = 0
+    UInt8 = 1
+    Int8 = 2
+    UInt16 = 3
+    Int16 = 4
+    UInt32 = 5
+    Int32 = 6
+    UInt64 = 7
+    Int64 = 8
+    Float = 9
+    Double = 10
+
+data_lengths = [0, 1, 1, 2, 2, 4, 4, 8, 8, 4, 8]
+
+data_strings = ["", "B", "b", "H", "h", "I", "i", "Q", "q", "f", "d"]
+
+def pack_data(types, values):
+    fmt = "="
+    for type in types:
+        fmt += data_strings[type.value]
+
+    return struct.pack(fmt, *values)
+
+def unpack_data(types, data):
+    fmt = "="
+    for type in types:
+        fmt += data_strings[type.value]
+    
+    return struct.unpack(fmt, data)
+
 class DeviceNotFound(Exception):
     """Cannot find device"""
-
 
 class SerialManager:
     """Wrapper class for pyserial"""

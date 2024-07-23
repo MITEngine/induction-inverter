@@ -3,21 +3,21 @@ import struct
 import time
 from enum import Enum
 
-from serial_manager import SerialManager
+from serial_manager import DataType, SerialManager, pack_data
 
 manager = SerialManager("STM32 STLink", startswith=True)
+
+dtype = [DataType.UInt8, DataType.Float]
+
+manager.write_bytes(pack_data(dtype, [1, 80]))
+
 angle = 0
 
-data = bytearray([1])
-data.extend(struct.pack("f", 100))
-manager.write_bytes(data)
-time.sleep(0.1)
+time.sleep(0.01)
 
 while True:
-    angle += 0.01
-    data = bytearray([0])
-    data.extend(struct.pack("f", angle))
-    manager.write_bytes(data)
+    manager.write_bytes(pack_data(dtype, [0, angle]))
+    angle += 0.05
     time.sleep(0.001)
 
 
