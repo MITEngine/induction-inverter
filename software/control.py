@@ -5,20 +5,22 @@ from enum import Enum
 
 from serial_manager import DataType, SerialManager, pack_data
 
-manager = SerialManager("STM32 STLink", startswith=True)
+manager = SerialManager("STM32 STLink", startswith=True, baud=921600)
 
 dtype = [DataType.UInt8, DataType.Float]
 
-manager.write_bytes(pack_data(dtype, [1, 80]))
+manager.write_bytes(pack_data(dtype, [0, 50]))
+time.sleep(0.01)
+manager.write_bytes(pack_data(dtype, [1, 900000]))
 
 angle = 0
 
 time.sleep(0.01)
 
-while True:
-    manager.write_bytes(pack_data(dtype, [0, angle]))
-    angle += 0.05
-    time.sleep(0.001)
+# while True:
+#     manager.write_bytes(pack_data(dtype, [0, angle]))
+#     angle += 0.001
+#     time.sleep(0.0001)
 
 
 
