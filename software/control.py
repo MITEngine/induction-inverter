@@ -3,19 +3,26 @@ import struct
 import time
 from enum import Enum
 
-from serial_manager import DataType, SerialManager, pack_data
+from serial_manager import DataType, SerialManager, pack_data, unpack_data
 
-manager = SerialManager("STM32 STLink", startswith=True, baud=921600)
+# manager = SerialManager("STM32 STLink", startswith=True, baud=921600)
+manager = SerialManager("induction-inverter", baud=921600)
 
-dtype = [DataType.UInt8, DataType.Float]
+dtype = [DataType.Float, DataType.Float]
 
-manager.write_bytes(pack_data(dtype, [0, 50]))
-time.sleep(0.01)
-manager.write_bytes(pack_data(dtype, [1, 900000]))
 
-angle = 0
+# manager.write_bytes(pack_data(dtype, [0, 50]))
+# time.sleep(0.01)
+# manager.write_bytes(pack_data(dtype, [1, 900000]))
 
-time.sleep(0.01)
+# angle = 0
+
+# time.sleep(0.01)
+
+while True:
+    data = manager.read_bytes(2)
+    print(unpack_data(dtype, data))
+    time.sleep(0.001)
 
 # while True:
 #     manager.write_bytes(pack_data(dtype, [0, angle]))

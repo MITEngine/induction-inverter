@@ -69,6 +69,10 @@ class SerialManager:
             self.ser = serial.Serial(self.device, self.baud)
         else:
             raise DeviceNotFound(f"{device} not found")
+        
+    def read_all(self):
+        """Reads all bytes in buffer"""
+        return self.ser.read_all()
 
     def write_bytes(self, bytes):
         """Writes byte array"""
